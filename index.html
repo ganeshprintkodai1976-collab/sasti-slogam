@@ -19,11 +19,10 @@ body {
 /* Scroll container */
 #container {
   position: absolute;
-  bottom: -100%;
   width: 100%;
   text-align: center;
   padding: 20px;
-  animation: scrollUp 300s linear infinite;
+  animation: scrollUp 160s linear infinite;
 }
 
 /* Text */
@@ -40,19 +39,21 @@ body {
   font-weight: bold;
   color: white;
   margin-bottom: 20px;
+  text-shadow: 0 0 10px white;
 }
 
-/* Animation */
+/* Smooth animation */
 @keyframes scrollUp {
-  0% { bottom: -100%; }
-  100% { bottom: 100%; }
+  from { transform: translateY(100%); }
+  to { transform: translateY(-100%); }
 }
 
-/* Buttons */
+/* Controls */
 #controls {
   position: fixed;
   bottom: 20px;
   right: 20px;
+  z-index: 999;
 }
 
 #controls button {
@@ -64,6 +65,7 @@ body {
   background: #fff44f;
   color: black;
   font-weight: bold;
+  cursor: pointer;
 }
 
 /* Explanation button */
@@ -75,16 +77,33 @@ body {
   color: black;
   padding: 10px;
   border-radius: 8px;
+  cursor: pointer;
+}
+
+/* 🌸 Kurinji Flowers */
+.flower {
+  position: fixed;
+  top: -50px;
+  width: 15px;
+  height: 15px;
+  background: radial-gradient(circle, #d291ff, #7a00cc);
+  border-radius: 50%;
+  opacity: 0.5;
+  pointer-events: none;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  from { transform: translateY(-50px) translateX(0); }
+  to { transform: translateY(110vh) translateX(40px); }
 }
 </style>
 </head>
 
 <body>
 
-<!-- Explanation Button -->
 <button id="explainBtn" onclick="goExplain()">📖 விளக்கம்</button>
 
-<!-- Scrolling Text -->
 <div id="container">
   <div id="text">
 
@@ -596,7 +615,6 @@ body {
   </div>
 </div>
 
-<!-- Controls -->
 <div id="controls">
   <button onclick="speedUp()">⏩</button>
   <button onclick="slowDown()">⏪</button>
@@ -604,7 +622,7 @@ body {
 </div>
 
 <script>
-let speed = 300;
+let speed = 160;
 let paused = false;
 
 function applySpeed() {
@@ -613,13 +631,13 @@ function applySpeed() {
 }
 
 function speedUp() {
-  speed -= 50;
-  if (speed < 50) speed = 50;
+  speed -= 20;
+  if (speed < 60) speed = 60;
   applySpeed();
 }
 
 function slowDown() {
-  speed += 50;
+  speed += 20;
   applySpeed();
 }
 
@@ -635,10 +653,28 @@ function togglePause() {
   }
 }
 
-/* Explanation page */
 function goExplain(){
   window.location.href = "explain.html";
 }
+
+/* 🌸 Kurinji Flower Generator */
+function createFlower() {
+  const flower = document.createElement("div");
+  flower.classList.add("flower");
+
+  flower.style.left = Math.random() * window.innerWidth + "px";
+  flower.style.animationDuration = (4 + Math.random() * 4) + "s";
+  flower.style.opacity = 0.3 + Math.random() * 0.3;
+  flower.style.width = flower.style.height = (10 + Math.random()*15) + "px";
+
+  document.body.appendChild(flower);
+
+  setTimeout(() => {
+    flower.remove();
+  }, 8000);
+}
+
+setInterval(createFlower, 600);
 </script>
 
 </body>
