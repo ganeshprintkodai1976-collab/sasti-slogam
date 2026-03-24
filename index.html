@@ -16,16 +16,15 @@ body {
   overflow: hidden;
 }
 
-/* Scroll container */
+/* Scroll */
 #container {
   position: absolute;
   width: 100%;
   text-align: center;
   padding: 20px;
-  animation: scrollUp 160s linear infinite;
+  animation: scrollUp 90s linear infinite;
 }
 
-/* Text */
 #text {
   line-height: 2.2;
   white-space: pre-line;
@@ -33,59 +32,46 @@ body {
   margin: auto;
 }
 
-/* Title */
 .title {
   font-size: 34px;
   font-weight: bold;
   color: white;
   margin-bottom: 20px;
-  text-shadow: 0 0 10px white;
 }
 
-/* Smooth animation */
+/* Smooth scroll */
 @keyframes scrollUp {
   from { transform: translateY(100%); }
   to { transform: translateY(-100%); }
 }
 
-/* Controls */
+/* Buttons */
 #controls {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  z-index: 999;
 }
 
-#controls button {
+button {
   margin: 5px;
-  padding: 10px 14px;
-  font-size: 16px;
-  border: none;
+  padding: 10px;
   border-radius: 8px;
+  border: none;
   background: #fff44f;
-  color: black;
   font-weight: bold;
-  cursor: pointer;
 }
 
-/* Explanation button */
+/* Explain button */
 #explainBtn {
   position: fixed;
   top: 20px;
   right: 20px;
-  background: white;
-  color: black;
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
 }
 
-/* 🌸 Kurinji Flowers */
+/* 🌸 Flowers */
 .flower {
   position: fixed;
   top: -50px;
-  width: 15px;
-  height: 15px;
   background: radial-gradient(circle, #d291ff, #7a00cc);
   border-radius: 50%;
   opacity: 0.5;
@@ -94,8 +80,8 @@ body {
 }
 
 @keyframes fall {
-  from { transform: translateY(-50px) translateX(0); }
-  to { transform: translateY(110vh) translateX(40px); }
+  from { transform: translateY(-50px); }
+  to { transform: translateY(110vh); }
 }
 </style>
 </head>
@@ -106,19 +92,20 @@ body {
 
 <div id="container">
   <div id="text">
+    <div class="title">கந்த சஷ்டி கவசம்</div>
 
-<div class="title">கந்த சஷ்டி கவசம்</div>
+  கந்த சஷ்டி கவசம் காப்பு
 
-கந்த சஷ்டி கவசம் காப்பு
-
-துதிப்போர்க்கு வல்வினை போம்; துன்பம்போம்; 
-நெஞ்சில்பதிப்போர்க்குச் செல்வம் பலித்துக்-
-கதித்தோங்கும் நிஷ்டையுங் கைகூடும்
-நிமலரருள் கந்தர் சஷ்டி கவசம் தனை
+துதிப்போர்க்கு வல்வினை போம்; துன்பம்போம்; நெஞ்சில்
+பதிப்போர்க்குச் செல்வம் பலித்துக்-கதித்தோங்கும்
+நிஷ்டையுங் கைகூடும், நிமலரருள் கந்தர்
+சஷ்டி கவசம் தனை.
 அமர ரிடர்தீர அமரம் புரிந்த
 குமரனடி நெஞ்சே குறி.
 
+
 கந்த சஷ்டி கவசம் பாடல் வரிகள்
+
 
 சஷ்டியை நோக்கச் சரவண பவனார்
 
@@ -622,59 +609,60 @@ body {
 </div>
 
 <script>
-let speed = 160;
-let paused = false;
 
-function applySpeed() {
-  document.getElementById("container").style.animation =
-    scrollUp ${speed}s linear infinite;
+/* ===== SCROLL CONTROL ===== */
+let speed = 90;
+let paused = false;
+const container = document.getElementById("container");
+
+function updateAnimation() {
+  container.style.animation = scrollUp ${speed}s linear infinite;
 }
 
 function speedUp() {
-  speed -= 20;
-  if (speed < 60) speed = 60;
-  applySpeed();
+  speed -= 10;
+  if (speed < 40) speed = 40;
+  updateAnimation();
 }
 
 function slowDown() {
-  speed += 20;
-  applySpeed();
+  speed += 10;
+  updateAnimation();
 }
 
 function togglePause() {
-  const c = document.getElementById("container");
-
   if (!paused) {
-    c.style.animationPlayState = "paused";
+    container.style.animationPlayState = "paused";
     paused = true;
   } else {
-    c.style.animationPlayState = "running";
+    container.style.animationPlayState = "running";
     paused = false;
   }
 }
 
-function goExplain(){
+/* ===== EXPLAIN PAGE ===== */
+function goExplain() {
   window.location.href = "explain.html";
 }
 
-/* 🌸 Kurinji Flower Generator */
+/* ===== 🌸 FLOWERS ===== */
 function createFlower() {
   const flower = document.createElement("div");
-  flower.classList.add("flower");
+  flower.className = "flower";
 
   flower.style.left = Math.random() * window.innerWidth + "px";
-  flower.style.animationDuration = (4 + Math.random() * 4) + "s";
-  flower.style.opacity = 0.3 + Math.random() * 0.3;
   flower.style.width = flower.style.height = (10 + Math.random()*15) + "px";
+  flower.style.animationDuration = (3 + Math.random()*3) + "s";
 
   document.body.appendChild(flower);
 
   setTimeout(() => {
     flower.remove();
-  }, 8000);
+  }, 6000);
 }
 
-setInterval(createFlower, 600);
+setInterval(createFlower, 500);
+
 </script>
 
 </body>
